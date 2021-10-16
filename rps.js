@@ -112,6 +112,8 @@ function pickWinner(computerSection, playSelection) {
 function printFinalWinner(){
     // compare total counts off each player print out winner;
 
+   if(playCount===numberOfRounds){
+      
     if (computerWinCount === playerWinCount)  {
 
         alert("it,s a draw no winner ");
@@ -125,6 +127,7 @@ function printFinalWinner(){
         alert("worn");
 
     }
+   }
 } 
 
 
