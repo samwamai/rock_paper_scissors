@@ -6,46 +6,69 @@ const numberOfRounds = 5;
 
 
 
-function playGame() {
+const buttons = document.querySelectorAll('button');
 
-   //loop numberOfRounds; 
-   while(playCount<=numberOfRounds){
+   buttons.forEach((button)=>{
+       button.addEventListener("click",()=>{
+           
+           const parentnode = button.parentNode;
+           parentnode.classList.add('animate-button');
 
-   let value = prompt("enter your selection").toLowerCase();
+           parentnode.addEventListener("animationend",(button)=>{
+           parentnode.classList.remove('animate-button');   
+    
+           }, false);
 
+           playGame(button.id);
+       })
+   })
+
+const computerWins = document.getElementById('computer');
+const draw = document.getElementById('draw');
+const playerWins = document.getElementById('player');  
+const rounds = document.getElementById('rounds'); 
+
+
+function playGame(value) {
 
    if(value == "rock" || value == "paper" || value == "scissors"){
 
+   if(playCount < numberOfRounds){
+ 
    // increment after every successful play; 
    playCount++;
-
+   rounds.innerHTML=playCount;
    const computerPick = computerPlay();
    const playerPick = value;
 
    const winner = pickWinner(computerPick, playerPick);
 
-   if (winner === 0) {
-       drawCount++; 
-       alert("Round:" + playCount + " Draw"+" \nProgram pick: "+computerPick+" \nPlayer pick: "+playerPick)
-       }
-   if (winner === 1) {
-        computerWinCount++;
-        alert("Round:" + playCount + " you lose"+" \nProgram pick: "+computerPick+" \nPlayer pick: "+playerPick)
-        }
-   if (winner === 2) {
-        playerWinCount++;
-        alert("Round:" + playCount + " you worn"+" \nProgram pick: "+computerPick+" \nPlayer pick: "+playerPick)
-        }
+   printEachRoundWinner(winner);
 
-   }else{
+   
+   }else {
 
-    alert("please enter rock, paper or scissors");
-
-   }
-    
     printFinalWinner();
+    
+    resetCounters();
+
+   }   
 
    }
+}
+   
+function resetCounters(){
+
+playCount=0;
+computerWinCount = 0;
+playerWinCount = 0;
+drawCount = 0;
+    
+computerWins.innerHTML="0";
+draw.innerHTML="0";
+playerWins.innerHTML="0"; 
+rounds.innerHTML="0"; 
+
 }
 
    function computerPlay() {
@@ -109,25 +132,60 @@ function pickWinner(computerSection, playSelection) {
 }
 
 
+function printEachRoundWinner(winner){
+
+    if (winner === 0) {
+        drawCount++; 
+        draw.innerHTML=drawCount;
+        animateScores(draw);
+        }
+    if (winner === 1) {
+         computerWinCount++;
+         computerWins.innerHTML=computerWinCount;
+         animateScores(computerWins);
+         }
+    if (winner === 2) {
+         playerWinCount++;
+         playerWins.innerHTML=playerWinCount;
+         animateScores(playerWins);
+         }
+ 
+}
+
 function printFinalWinner(){
     // compare total counts off each player print out winner;
-
-   if(playCount===numberOfRounds){
       
     if (computerWinCount === playerWinCount)  {
-
-        alert("it,s a draw no winner ");
+        animateWinner(draw);
+        alert("Draw");
 
     } else if (computerWinCount > playerWinCount) {
-
-        alert("lost");
+        animateWinner(computerWins)
+        alert("winner PC");
 
     } else if(computerWinCount < playerWinCount){
-
-        alert("worn");
-
+        animateWinner(playerWins)
+        alert("winner PY");
     }
-   }
-} 
+}
+
+function animateScores(element){
+const parentnode = element.parentNode;
+parentnode.classList.add('animate-button');
+
+parentnode.addEventListener("animationend",()=>{
+parentnode.classList.remove('animate-button');   
+
+}, false);
+
+}
+function animateWinner(element){
+    const parentnode = element.parentNode;
+    parentnode.classList.add('animate');
+    
+    parentnode.addEventListener("animationend",()=>{
+    parentnode.classList.remove('animate');   
+    }, false);   
+}
 
 

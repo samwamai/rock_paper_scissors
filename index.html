@@ -7,21 +7,48 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <script src="rps.js"></script>
 
 
     <div class="container-buttons">
-      <div class="button">
+      <div class="item-button ">
         <button id="rock">rock</button>
       </div>
-      <div class="button">
+      <div class="item-button">
         <button id="paper">paper</button>
       </div>
-      <div class="button">
+      <div class="item-button">
         <button id="scissors">scissors</button>
       </div>
     </div>
 
+
+<div class="container-rounds">
+  <div class="item-round">
+    <h1 class="item">Round: </h1>
+    <h1 class="item" id="rounds">0</h1>
+  </div>
+</div>
+
+    <div class="container-scores">
+    
+      <div class="item-score">
+        <h6>PC</h6>
+        <p id="computer">0</p>
+      </div>
+
+      <div class="item-score">
+        <h6>DRAW</h6>
+        <p id="draw">0</p>
+      </div>
+
+      <div class="item-score">
+        <h6>PY</h6>
+        <p id="player">0</p>
+      </div>
+
+    </div>
+
+    <script src="rps.js"></script>
 
   </body>
 </html
